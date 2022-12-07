@@ -18,14 +18,16 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of useful is to ...
+This package is for helper functions I end up using all the time. 
+
+Its under heavy development at the moment. 
 
 ## Installation
 
 You can install the development version of useful like so:
 
 ``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+devtools::install_github("TomBearpark/useful")
 ```
 
 ## Example
