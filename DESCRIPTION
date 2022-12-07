@@ -12,7 +12,9 @@ RoxygenNote: 7.2.1
 Imports: 
     dplyr,
     fixest,
+    magrittr,
     purrr,
+    rlang,
     stats,
     stringr,
     utils

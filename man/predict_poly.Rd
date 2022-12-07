@@ -46,5 +46,9 @@ a tibble
 Get the response function from a polynomial FE regression, with SEs
 }
 \examples{
-predict_poly(m, tavg, 10, 30, 20)
+library(fixest); library(dplyr)
+data <- tibble(y = rnorm(10), tavg = rnorm(10), tavg2 = tavg^2)
+m <- feols(fml = y ~ tavg + tavg2, data = data)
+predict_poly(m, "tavg", 10, 30, 20)
+
 }

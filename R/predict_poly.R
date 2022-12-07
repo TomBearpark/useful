@@ -20,7 +20,13 @@
 #' @return a tibble
 #' @export
 #'
-#' @examples predict_poly(m, tavg, 10, 30, 20)
+#' @examples
+#' library(fixest); library(dplyr)
+#' data <- tibble(y = rnorm(10), tavg = rnorm(10), tavg2 = tavg^2)
+#' m <- feols(fml = y ~ tavg + tavg2, data = data)
+#' predict_poly(m, "tavg", 10, 30, 20)
+#'
+
 predict_poly <- function(m, var, min, max, ref, ci_level = 95,
                          step.length = 1, coefs = NULL){
 
@@ -45,7 +51,7 @@ predict_poly <- function(m, var, min, max, ref, ci_level = 95,
 
   # Get the SE by the delta method
   ## Extract relevant portion of the covariance matrix
-  sig <- feols::vcov(m)[coefs, coefs]
+  sig <- stats::vcov(m)[coefs, coefs]
 
   ## Take derivative of the function by each coefficient at each t
   AA <- matrix(nrow = Nt, ncol = K)
@@ -65,7 +71,12 @@ predict_poly <- function(m, var, min, max, ref, ci_level = 95,
   cv <- stats::qnorm((100-(100-ci_level)/2)/100)
 
   # Coefficient output formatting
-  dplyr::tibble(temp = seq(min, max, step.length), response = drop(xb), se = se) %>%
-    dplyr::mutate(upper = response + cv * se, lower = response - cv * se)
+  output <- dplyr::tibble(temp = seq(min, max, step.length),
+                response = drop(xb),
+                se = se)
+  output$upper <- output$response + cv*se
+  output$lower <- output$response - cv*se
+
+  return(output)
 }
 
