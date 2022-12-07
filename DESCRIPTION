@@ -16,3 +16,5 @@ Imports:
     stats,
     stringr,
     utils
+URL: https://github.com/TomBearpark/useful
+BugReports: https://github.com/TomBearpark/useful/issues
