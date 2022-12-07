@@ -1,0 +1,18 @@
+Package: useful
+Title: Some functions I'm always using in empirical climate econometrics research
+Version: 0.0.0.9000
+Authors@R: 
+    person("Thomas", "Bearpark", , "t.bearpark@gmail.com", role = c("aut", "cre"))
+Description: A bunch of helpful functions for running fixed effects regressions, 
+    plotting their outputs. Heavily dependent on the feols package. 
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.1
+Imports: 
+    dplyr,
+    fixest,
+    purrr,
+    stats,
+    stringr,
+    utils
