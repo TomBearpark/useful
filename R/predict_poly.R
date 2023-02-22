@@ -15,7 +15,10 @@
 #' @param ref The reference value, all other
 #' @param ci_level The confidence interval
 #' @param step.length How far apart should we predict each value
-#' @param coefs Use this if you want to
+#' @param coefs Use this if you want to manually specify the coefs, rather
+#' than automatically guess them
+#' @param id.col can specify something to put into an extra column: useful for
+#' facetting in later plots
 #'
 #' @return a tibble
 #' @export
@@ -28,7 +31,8 @@
 #'
 
 predict_poly <- function(m, var, min, max, ref, ci_level = 95,
-                         step.length = 1, coefs = NULL){
+                         step.length = 1, coefs = NULL,
+                         id.col = NULL){
 
   # Extract the coefs as a matrix
   if(is.null(coefs)){
@@ -71,12 +75,12 @@ predict_poly <- function(m, var, min, max, ref, ci_level = 95,
   cv <- stats::qnorm((100-(100-ci_level)/2)/100)
 
   # Coefficient output formatting
-  output <- dplyr::tibble(temp = seq(min, max, step.length),
-                response = drop(xb),
-                se = se)
+  output <- dplyr::tibble(!!var := seq(min, max, step.length),
+                          response = drop(xb), se = se)
   output$upper <- output$response + cv*se
   output$lower <- output$response - cv*se
 
+  if(!is.null(id.col)) output$id <- id.col
   return(output)
 }
 
