@@ -4,7 +4,7 @@
 \alias{plot_rf_poly}
 \title{Plot the output of a predict_poly call}
 \usage{
-plot_rf_poly(tab)
+plot_rf_poly(tab, xvar = "temp")
 }
 \arguments{
 \item{tab}{: the output of predict_poly()}
