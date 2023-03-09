@@ -32,7 +32,7 @@
 
 predict_poly <- function(m, var, min, max, ref, ci_level = 95,
                          step.length = 1, coefs = NULL,
-                         id.col = NULL){
+                         id.col = NULL, xvar_name = "temp"){
 
   # Extract the coefs as a matrix
   if(is.null(coefs)){
@@ -75,7 +75,7 @@ predict_poly <- function(m, var, min, max, ref, ci_level = 95,
   cv <- stats::qnorm((100-(100-ci_level)/2)/100)
 
   # Coefficient output formatting
-  output <- dplyr::tibble(!!var := seq(min, max, step.length),
+  output <- dplyr::tibble(!!xvar_name := seq(min, max, step.length),
                           response = drop(xb), se = se)
   output$upper <- output$response + cv*se
   output$lower <- output$response - cv*se
