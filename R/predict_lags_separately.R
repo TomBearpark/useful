@@ -30,7 +30,7 @@ predict_lags_separately <- function(m, var, min, max, ref,
       ltag <- dplyr::if_else(ll >= 0, "l", "f")
       var  <- paste0(ltag, abs(ll), "_", var)
 
-      useful::predict_poly(m.poly.lags, var,
+      useful::predict_poly(m, var,
                            min = min, max = max, ref = ref,
                            ci_level = ci_level, step.length = step.length,
                            id.col = id.col, xvar_name = xvar_name) %>%
