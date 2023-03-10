@@ -2,6 +2,7 @@
 
 export("%>%")
 export(plot_rf_poly)
+export(predict_lags_separately)
 export(predict_poly)
 export(predict_poly_sum_lags)
 importFrom(magrittr,"%>%")
