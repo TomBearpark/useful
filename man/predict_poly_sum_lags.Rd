@@ -10,6 +10,7 @@ predict_poly_sum_lags(
   min,
   max,
   ref,
+  ivar_tag = "",
   ci_level = 95,
   step.length = 1,
   coefs = NULL,

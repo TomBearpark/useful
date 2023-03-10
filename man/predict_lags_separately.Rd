@@ -12,6 +12,7 @@ predict_lags_separately(
   ref,
   leads,
   lags,
+  var_het = NULL,
   ci_level = 95,
   step.length = 1,
   id.col = NULL,

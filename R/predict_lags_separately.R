@@ -20,6 +20,7 @@
 #'
 predict_lags_separately <- function(m, var, min, max, ref,
                                     leads, lags,
+                                    var_het = NULL,
                                     ci_level = 95,
                                     step.length = 1, id.col = NULL,
                                     xvar_name = "temp"){
@@ -28,7 +29,11 @@ predict_lags_separately <- function(m, var, min, max, ref,
     function(ll){
 
       ltag <- dplyr::if_else(ll >= 0, "l", "f")
-      var  <- paste0(ltag, abs(ll), "_", var)
+
+      if(!is.null(var_het)) var_het_tag <- paste0(var_het, ":")
+      else var_het_tag <- ""
+
+      var  <- paste0(var_het_tag, ltag, abs(ll), "_", var)
 
       useful::predict_poly(m, var,
                            min = min, max = max, ref = ref,
