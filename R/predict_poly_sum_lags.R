@@ -40,7 +40,7 @@ predict_poly_sum_lags <- function(m,
   # Extract the coefs as a matrix
   if(is.null(coefs)){
     coefs <- stringr::str_subset(names(stats::coef(m)), var)
-    coefs <- stringr::str_subset(coefs, ivar_tag)
+    if(ivar_tag != "") coefs <- stringr::str_subset(coefs, ivar_tag)
   }
 
   beta  <- as.matrix(stats::coef(m)[coefs])
@@ -57,14 +57,14 @@ predict_poly_sum_lags <- function(m,
   # Get auxilliary matrices for predictions
   for(kk in coefs) {
 
-    var <- str_split(kk, "_", simplify = TRUE)
+    var <- stringr::str_split(kk, "_", simplify = TRUE)
 
     # We need to check for the right naming scheme here, prevent bugs
     stopifnot("should be only two _ in name" = (dim(var)[1] == 1 & dim(var)[2] == 3))
     stopifnot(
-      (str_length(var[1]) == 2 & str_detect(var[1], "l")) |
+      (stringr::str_length(var[1]) == 2 & stringr::str_detect(var[1], "l")) |
         ivar_tag != "")
-    stopifnot(str_length(var[3]) == 2 & str_detect(var[3], "p"))
+    stopifnot(stringr::str_length(var[3]) == 2 & stringr::str_detect(var[3], "p"))
 
     pp <- as.numeric(str_extract(var[3], "[[:digit:]]+"))
     TT[,kk] <- seq(min, max, step.length)^pp - ref^pp
