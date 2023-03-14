@@ -15,18 +15,20 @@ knitr::opts_chunk$set(
 
 # useful
 
-<!-- badges: start -->
-<!-- badges: end -->
+This package is for helper functions I end up using all the time.
 
-This package is for helper functions I end up using all the time. 
+Its under heavy development at the moment - so probably best to chat to me if you want to use anything.
 
-Its under heavy development at the moment. 
+Things in this package are for:
+
+-   Plotting temperature and precipitation response functions from `fixest` regression output
 
 ## Installation
 
-You can install the development version of useful like so:
+You can install the development version of useful from [GitHub](https://github.com/) with:
 
 ``` r
+# install.packages("devtools")
 devtools::install_github("TomBearpark/useful")
 ```
 
@@ -35,7 +37,17 @@ devtools::install_github("TomBearpark/useful")
 This is a basic example which shows you how to solve a common problem:
 
 ```{r example}
-library(useful)
-## basic example code
-```
 
+library(useful)
+library(fixest)
+
+df <- cars
+
+df$dist1 <- df$dist
+df$dist2 <- df$dist^2
+
+m  <- fixest::feols(speed ~ dist1 + dist2, data = df)
+rf <- useful::predict_poly(m, "dist", min = 2, max = 100, ref = 50, 
+                           xvar_name = "dist")
+useful::plot_rf_poly(rf, xvar = "dist")
+```

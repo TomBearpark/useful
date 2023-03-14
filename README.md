@@ -3,18 +3,23 @@
 
 # useful
 
-<!-- badges: start -->
-<!-- badges: end -->
-
 This package is for helper functions I end up using all the time.
 
-Its under heavy development at the moment.
+Its under heavy development at the moment - so probably best to chat to
+me if you want to use anything.
+
+Things in this package are for:
+
+- Plotting temperature and precipitation response functions from
+  `fixest` regression output
 
 ## Installation
 
-You can install the development version of useful like so:
+You can install the development version of useful from
+[GitHub](https://github.com/) with:
 
 ``` r
+# install.packages("devtools")
 devtools::install_github("TomBearpark/useful")
 ```
 
@@ -23,33 +28,19 @@ devtools::install_github("TomBearpark/useful")
 This is a basic example which shows you how to solve a common problem:
 
 ``` r
+
 library(useful)
-## basic example code
+library(fixest)
+
+df <- cars
+
+df$dist1 <- df$dist
+df$dist2 <- df$dist^2
+
+m  <- fixest::feols(speed ~ dist1 + dist2, data = df)
+rf <- useful::predict_poly(m, "dist", min = 2, max = 100, ref = 50, 
+                           xvar_name = "dist")
+useful::plot_rf_poly(rf, xvar = "dist")
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
-
-``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
-```
-
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this. You could also
-use GitHub Actions to re-render `README.Rmd` every time you push. An
-example workflow can be found here:
-<https://github.com/r-lib/actions/tree/v1/examples>.
-
-You can also embed plots, for example:
-
-<img src="man/figures/README-pressure-1.png" width="100%" />
-
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.
+<img src="man/figures/README-example-1.png" width="100%" />
