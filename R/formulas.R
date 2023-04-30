@@ -1,5 +1,16 @@
 # Functions for building formula's for fixest regressions
 
+#' Generate a string for a given variable
+#'
+#' @param leads
+#' @param lags
+#' @param treatvar
+#' @param interact
+#'
+#' @return
+#' @export
+#'
+#' @examples
 gen_ff <- function(leads, lags, treatvar, interact = NULL){
   if(is.null(interact)){
     leads_str <- ifelse(leads > 0, paste0("f", leads:1, "_",treatvar, collapse = "+"), "")
@@ -18,6 +29,23 @@ gen_ff <- function(leads, lags, treatvar, interact = NULL){
 }
 
 
+#' Build a formula for fixest
+#'
+#' @param yvar
+#' @param treat
+#' @param control
+#' @param poly_treat
+#' @param poly_control
+#' @param leads
+#' @param lags
+#' @param FE
+#' @param interact
+#' @param manual_treat
+#'
+#' @return
+#' @export
+#'
+#' @examples
 build_formula_poly <- function(yvar,
                                treat,
                                control,
