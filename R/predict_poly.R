@@ -63,7 +63,6 @@ predict_poly <- function(m, var, min, max, ref, ci_level = 95,
                   Amat <- t(matrix(TT[tt,]))
                   sqrt(Amat %*% sig %*% t(Amat))
                 })
-
   # Calcutate normal approximation to critical values for rescaling SEs
   cv <- stats::qnorm((100-(100-ci_level)/2)/100)
 

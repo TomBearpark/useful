@@ -62,7 +62,7 @@ predict_poly_sum_lags <- function(m,
     # We need to check for the right naming scheme here, prevent bugs
     stopifnot("should be only two _ in name" = (dim(var)[1] == 1 & dim(var)[2] == 3))
     stopifnot(
-      (stringr::str_length(var[1]) == 2 & stringr::str_detect(var[1], "l")) |
+      (stringr::str_length(var[1]) <= 3 & stringr::str_detect(var[1], "l")) |
         ivar_tag != "")
     stopifnot(stringr::str_length(var[3]) == 2 & stringr::str_detect(var[3], "p"))
 
