@@ -69,7 +69,7 @@ predict_poly_sum_lags <- function(m,
     pp <- as.numeric(str_extract(var[3], "[[:digit:]]+"))
     TT[,kk] <- seq(min, max, step.length)^pp - ref^pp
   }
-
+browser()
   beta <- as.matrix(beta[colnames(TT),] )
   # Get the predicted values
   xb  <- TT %*% beta
