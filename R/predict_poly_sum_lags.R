@@ -33,7 +33,8 @@ predict_poly_sum_lags <- function(m,
                                   ivar_tag = "",
                                   ci_level = 95,
                                   step.length = 1, coefs = NULL,
-                                  id.col = NULL, xvar_name = "temp"){
+                                  id.col = NULL, xvar_name = "temp",
+                                  include_checks = FALSE){
 
 
 
@@ -55,17 +56,20 @@ predict_poly_sum_lags <- function(m,
   colnames(TT) <- coefs
 
   # Get auxilliary matrices for predictions
+  if(!include_checks) message(paste0(coefs, sep = " "))
+
   for(kk in coefs) {
 
     var <- stringr::str_split(kk, "_", simplify = TRUE)
 
     # We need to check for the right naming scheme here, prevent bugs
-    stopifnot("should be only two _ in name" = (dim(var)[1] == 1 & dim(var)[2] == 3))
-    stopifnot(
-      (stringr::str_length(var[1]) <= 3 & stringr::str_detect(var[1], "l")) |
-        ivar_tag != "")
-    stopifnot(stringr::str_length(var[3]) == 2 & stringr::str_detect(var[3], "p"))
-
+    if(include_checks){
+      stopifnot("should be only two _ in name" = (dim(var)[1] == 1 & dim(var)[2] == 3))
+      stopifnot(
+        (stringr::str_length(var[1]) <= 3 & stringr::str_detect(var[1], "l|f")) |
+          ivar_tag != "")
+      stopifnot(stringr::str_length(var[3]) == 2 & stringr::str_detect(var[3], "p"))
+    }
     pp <- as.numeric(str_extract(var[3], "[[:digit:]]+"))
     TT[,kk] <- seq(min, max, step.length)^pp - ref^pp
   }
