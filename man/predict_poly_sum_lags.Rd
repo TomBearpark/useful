@@ -15,7 +15,8 @@ predict_poly_sum_lags(
   step.length = 1,
   coefs = NULL,
   id.col = NULL,
-  xvar_name = "temp"
+  xvar_name = "temp",
+  include_checks = FALSE
 )
 }
 \arguments{
