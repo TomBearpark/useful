@@ -16,6 +16,9 @@
 #' than automatically guess them
 #' @param id.col can specify something to put into an extra column: useful for
 #' facetting in later plots
+#' @param xvar_name what do you want the prediction variable column name to be
+#' @param include_checks turn on some potentially handy name checks?
+#' @param divider numeric constant to rescale outputs
 #'
 #' @return a tibble
 #' @export
@@ -32,9 +35,12 @@ predict_poly_sum_lags <- function(m,
                                   min, max, ref,
                                   ivar_tag = "",
                                   ci_level = 95,
-                                  step.length = 1, coefs = NULL,
-                                  id.col = NULL, xvar_name = "temp",
-                                  include_checks = FALSE){
+                                  step.length = 1,
+                                  coefs = NULL,
+                                  id.col = NULL,
+                                  xvar_name = "temp",
+                                  include_checks = FALSE,
+                                  divider = NULL){
 
 
 
@@ -70,7 +76,7 @@ predict_poly_sum_lags <- function(m,
           ivar_tag != "")
       stopifnot(stringr::str_length(var[3]) == 2 & stringr::str_detect(var[3], "p"))
     }
-    pp <- as.numeric(str_extract(var[3], "[[:digit:]]+"))
+    pp <- as.numeric(stringr::str_extract(var[3], "[[:digit:]]+"))
     TT[,kk] <- seq(min, max, step.length)^pp - ref^pp
   }
 
@@ -95,6 +101,11 @@ predict_poly_sum_lags <- function(m,
                           response = drop(xb), se = se)
   output$upper <- output$response + cv*se
   output$lower <- output$response - cv*se
+
+  if(!is.null(divider))
+     output <- output %>%
+       dplyr::mutate(dplyr::across(c(upper, response, lower),
+                                   ~ .x / divider))
 
   if(!is.null(id.col)) output$id <- id.col
   return(output)

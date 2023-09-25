@@ -16,7 +16,8 @@ predict_poly_sum_lags(
   coefs = NULL,
   id.col = NULL,
   xvar_name = "temp",
-  include_checks = FALSE
+  include_checks = FALSE,
+  divider = NULL
 )
 }
 \arguments{
@@ -42,6 +43,12 @@ than automatically guess them}
 
 \item{id.col}{can specify something to put into an extra column: useful for
 facetting in later plots}
+
+\item{xvar_name}{what do you want the prediction variable column name to be}
+
+\item{include_checks}{turn on some potentially handy name checks?}
+
+\item{divider}{numeric constant to rescale outputs}
 }
 \value{
 a tibble
