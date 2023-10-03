@@ -4,7 +4,13 @@
 \alias{plot_rf_poly}
 \title{Plot the output of a predict_poly call}
 \usage{
-plot_rf_poly(tab, xvar = "temp")
+plot_rf_poly(
+  tab,
+  xvar = "temp",
+  fill.var = "blue",
+  facet.var = NULL,
+  scales = NULL
+)
 }
 \arguments{
 \item{tab}{: the output of predict_poly()}
