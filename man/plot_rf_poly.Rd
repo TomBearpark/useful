@@ -9,7 +9,8 @@ plot_rf_poly(
   xvar = "temp",
   fill.var = "blue",
   facet.var = NULL,
-  scales = NULL
+  scales = NULL,
+  alpha = 0.3
 )
 }
 \arguments{

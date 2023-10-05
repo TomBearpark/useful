@@ -76,3 +76,41 @@ predict_poly <- function(m, var, min, max, ref, ci_level = 95,
   return(output)
 }
 
+
+
+#' Predict poly for model where interactions were created using i()
+#'
+#' @param m
+#' @param df
+#' @param het.var
+#' @param xvar_name
+#' @param min
+#' @param max
+#' @param ref
+#' @param ci_level
+#' @param step.length
+#' @param coefs
+#' @param id.col
+#'
+#' @return
+#' @export
+#'
+#' @examples
+predict_poly_het <- function(m, df, het.var,
+                             xvar_name = "temp",
+                             min = 0, max = 35, ref = 0,
+                             ci_level = 95,
+                             step.length = 1, coefs = NULL, id.col = NULL
+                             ){
+
+    purrr::map_dfr(
+      unique(df[[het.var]]), function(hh){
+        useful::predict_poly(m, paste0(hh, ":", xvar),  min, max, ref,
+                   ci_level = ci_level,
+                   step.length = step.length, coefs = NULL,
+                   id.col = id.col) %>%
+        dplyr::mutate(!!het.var := as.factor(hh))
+    }
+  )
+
+}
