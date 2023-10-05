@@ -98,7 +98,7 @@ predict_poly <- function(m, var, min, max, ref, ci_level = 95,
 #' @examples
 predict_poly_het <- function(m, df, het.var,
                              xvar = "temp",
-                             min = 0, max = 35, ref = 0,
+                             min = 0, max = 35, ref = 20,
                              ci_level = 95,
                              step.length = 1, coefs = NULL, id.col = NULL
                              ){
