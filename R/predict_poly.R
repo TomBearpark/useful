@@ -96,6 +96,7 @@ predict_poly <- function(m, var, min, max, ref, ci_level = 95,
 #' @export
 #'
 #' @examples
+
 predict_poly_het <- function(m, df, het.var,
                              xvar = "temp",
                              min = 0, max = 35, ref = 20,
@@ -103,8 +104,10 @@ predict_poly_het <- function(m, df, het.var,
                              step.length = 1, coefs = NULL, id.col = NULL
                              ){
 
-    purrr::map_dfr(
-      unique(df[[het.var]]), function(hh){
+  het.list <- unique(df[[het.var]])
+  het.list <- het.list[!is.na(het.list)]
+
+  purrr::map_dfr(het.list, function(hh){
         useful::predict_poly(m, paste0(hh, ":", xvar),  min, max, ref,
                    ci_level = ci_level,
                    step.length = step.length, coefs = NULL,
