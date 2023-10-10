@@ -22,7 +22,7 @@ plot_rf_poly <- function(tab, xvar = "temp",
       ggplot2::geom_line(ggplot2::aes(y = response)) +
       ggplot2::geom_ribbon(ggplot2::aes(x = .data[[xvar]],
                                         ymax = upper, ymin = lower),
-                           alpha = 0.5, fill = fill)
+                           alpha = 0.5, fill = 'blue')
   }else{
     pp <- pp +
       ggplot2::geom_line(ggplot2::aes(y = response,
