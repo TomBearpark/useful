@@ -8,9 +8,12 @@
 #'
 plot_rf_poly <- function(tab, xvar = "temp",
                          fill.var = 'blue',
+                         line.color = 'black',
                          facet.var = NULL,
                          scales = NULL,
-                         alpha = .3){
+                         alpha = .3,
+                         fill.color = 'blue',
+                         add_theme = FALSE){
 
   # Set up plot
   pp <- ggplot2::ggplot(tab, aes(x = .data[[xvar]]))  +
@@ -19,14 +22,16 @@ plot_rf_poly <- function(tab, xvar = "temp",
 
   if(fill.var == 'blue'){
     pp <- pp +
-      ggplot2::geom_line(ggplot2::aes(y = response)) +
       ggplot2::geom_ribbon(ggplot2::aes(x = .data[[xvar]],
                                         ymax = upper, ymin = lower),
-                           alpha = 0.5, fill = 'blue')
+                           alpha = 0.5, fill = fill.color) +
+      ggplot2::geom_line(ggplot2::aes(y = response),
+                         color = line.color)
   }else{
     pp <- pp +
       ggplot2::geom_line(ggplot2::aes(y = response,
-                                      color = .data[[fill.var]])) +
+                                      color = .data[[fill.var]]),
+                         color = line.color) +
       ggplot2::geom_ribbon(ggplot2::aes(x = .data[[xvar]],
                                         ymax = upper, ymin = lower,
                                         fill = .data[[fill.var]]),
@@ -37,6 +42,9 @@ plot_rf_poly <- function(tab, xvar = "temp",
       ggplot2::facet_wrap(as.formula(paste("~", facet.var)),
                           scales = scales)
 
+  if(add_theme){
+    pp <- pp + ggplot2::theme(strip.background = element_blank())
+  }
   pp
 }
 

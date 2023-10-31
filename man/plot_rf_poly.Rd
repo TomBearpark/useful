@@ -8,9 +8,12 @@ plot_rf_poly(
   tab,
   xvar = "temp",
   fill.var = "blue",
+  line.color = "black",
   facet.var = NULL,
   scales = NULL,
-  alpha = 0.3
+  alpha = 0.3,
+  fill.color = "blue",
+  add_theme = FALSE
 )
 }
 \arguments{
