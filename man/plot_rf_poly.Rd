@@ -11,9 +11,10 @@ plot_rf_poly(
   line.color = "black",
   facet.var = NULL,
   scales = NULL,
-  alpha = 0.3,
+  alpha = 0.5,
   fill.color = "blue",
-  add_theme = FALSE
+  add_theme = FALSE,
+  nolegend = TRUE
 )
 }
 \arguments{
