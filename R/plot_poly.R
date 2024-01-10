@@ -36,8 +36,9 @@ plot_rf_poly <- function(tab,
                                         fill = .data[[fill.var]]),
                            alpha = alpha) +
       ggplot2::geom_line(ggplot2::aes(y = response,
-                                      color = .data[[fill.var]]),
-                         color = line.color)
+                                      color = .data[[fill.var]],
+                                      group = .data[[fill.var]]
+                                      ))
   }
 
   if(!is.null(facet.var)) pp <- pp +
