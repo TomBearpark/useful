@@ -6,14 +6,16 @@
 #' @return a ggplot object with some nice color bars
 #' @export
 #'
-plot_rf_poly <- function(tab, xvar = "temp",
+plot_rf_poly <- function(tab,
+                         xvar = "temp",
                          fill.var = 'blue',
                          line.color = 'black',
                          facet.var = NULL,
                          scales = NULL,
-                         alpha = .3,
+                         alpha = .5,
                          fill.color = 'blue',
-                         add_theme = FALSE){
+                         add_theme = FALSE,
+                         nolegend = TRUE){
 
   # Set up plot
   pp <- ggplot2::ggplot(tab, aes(x = .data[[xvar]]))  +
@@ -29,13 +31,13 @@ plot_rf_poly <- function(tab, xvar = "temp",
                          color = line.color)
   }else{
     pp <- pp +
-      ggplot2::geom_line(ggplot2::aes(y = response,
-                                      color = .data[[fill.var]]),
-                         color = line.color) +
       ggplot2::geom_ribbon(ggplot2::aes(x = .data[[xvar]],
                                         ymax = upper, ymin = lower,
                                         fill = .data[[fill.var]]),
-                           alpha = alpha)
+                           alpha = alpha) +
+      ggplot2::geom_line(ggplot2::aes(y = response,
+                                      color = .data[[fill.var]]),
+                         color = line.color)
   }
 
   if(!is.null(facet.var)) pp <- pp +
@@ -44,6 +46,9 @@ plot_rf_poly <- function(tab, xvar = "temp",
 
   if(add_theme){
     pp <- pp + ggplot2::theme(strip.background = element_blank())
+  }
+  if(nolegend){
+    pp <- pp + theme(legend.position="none")
   }
   pp
 }
