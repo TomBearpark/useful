@@ -8,11 +8,12 @@ plot_rf_poly(
   tab,
   xvar = "temp",
   fill.var = "blue",
+  fill.color = "blue",
   line.color = "black",
   facet.var = NULL,
-  scales = NULL,
   alpha = 0.5,
-  fill.color = "blue",
+  scales = NULL,
+  nrow = NULL,
   add_theme = FALSE,
   nolegend = TRUE
 )
