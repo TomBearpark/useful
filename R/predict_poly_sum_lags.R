@@ -112,6 +112,21 @@ predict_poly_sum_lags <- function(m,
 }
 
 
+#' Get a prediction df for a lagged response function with heterogeneity
+#'
+#' @param df.reg
+#' @param m
+#' @param treat.var
+#' @param min
+#' @param max
+#' @param ref
+#' @param het.var
+#' @param lags
+#'
+#' @return
+#' @export
+#'
+#' @examples
 plotdf.het <- function(df.reg, m,
                        treat.var = "precip_p",
                        min = 0, max = 300, ref = 0,
