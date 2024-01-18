@@ -111,3 +111,20 @@ predict_poly_sum_lags <- function(m,
   return(output)
 }
 
+
+plotdf.het <- function(df.reg, m,
+                       treat.var = "precip_p",
+                       min = 0, max = 300, ref = 0,
+                       het.var = "het",
+                       lags = 4
+                       ){
+  purrr::map_dfr(
+    unique(df.reg[[het.var]]),
+    function(het.val){
+      useful::predict_poly_sum_lags(m, treat.var, min, max, ref,
+                            ivar_tag = paste0(het.var, '::', het.val,':'),
+                            divider = lags + 1) %>%
+        dplyr::mutate(het = het.val)
+    }
+  )
+}
