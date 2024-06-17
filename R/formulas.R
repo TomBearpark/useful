@@ -82,13 +82,16 @@ build_formula_poly <- function(yvar,
       }
     }
   }
-
-  for(nn in seq_along(control)){
-    for(pp in 1:poly_control[nn]){
-      ff <- paste0(ff, gen_ff(leads = leads, lags = lags,
-                              paste0(control[nn], pp)))
-      if(pp < poly_control[nn] | nn != length(control)) ff <- paste0(ff,  "+")
+  if(!is.null(control)){
+    for(nn in seq_along(control)){
+      for(pp in 1:poly_control[nn]){
+        ff <- paste0(ff, gen_ff(leads = leads, lags = lags,
+                                paste0(control[nn], pp)))
+        if(pp < poly_control[nn] | nn != length(control)) ff <- paste0(ff,  "+")
+      }
     }
+  }else{
+    ff <- substr(ff, 1, str_length(ff)-1)
   }
 
   if(is.null(FE)) {
