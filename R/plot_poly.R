@@ -27,7 +27,7 @@ plot_rf_poly <- function(tab,
     pp <- pp +
       ggplot2::geom_ribbon(ggplot2::aes(x = .data[[xvar]],
                                         ymax = upper, ymin = lower),
-                           alpha = 0.5, fill = fill.color) +
+                           alpha = alpha, fill = fill.color) +
       ggplot2::geom_line(ggplot2::aes(y = response),
                          color = line.color)
   }else{
