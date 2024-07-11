@@ -104,7 +104,7 @@ predict_poly_sum_lags <- function(m,
 
   if(!is.null(divider))
      output <- output %>%
-       dplyr::mutate(dplyr::across(c(upper, response, lower),
+       dplyr::mutate(dplyr::across(c(upper, response, lower, se),
                                    ~ .x / divider))
 
   if(!is.null(id.col)) output$id <- id.col
