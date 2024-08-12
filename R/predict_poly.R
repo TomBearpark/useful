@@ -91,6 +91,7 @@ predict_poly <- function(m, var, min, max, ref, ci_level = 95,
 #' @param step.length
 #' @param coefs
 #' @param id.col
+#' @param infer.range
 #'
 #' @return
 #' @export
@@ -101,18 +102,34 @@ predict_poly_het <- function(m, df, het.var,
                              xvar = "temp",
                              min = 0, max = 35, ref = 20,
                              ci_level = 95,
-                             step.length = 1, coefs = NULL, id.col = NULL
+                             step.length = 1, coefs = NULL, id.col = NULL,
+                             infer.range=FALSE,
+                             minq=0, maxq=1, refq=0.5
                              ){
 
+  if(infer.range){
+    range <- df %>% dplyr::group_by(.data[[het.var]]) %>%
+      dplyr::summarise(
+        mint=quantile(.data[[paste0(xvar, "1")]], minq),
+        maxt=quantile(.data[[paste0(xvar, "1")]], maxq),
+        reft=quantile(.data[[paste0(xvar, "1")]], refq),
+      )
+  }
   het.list <- unique(df[[het.var]])
   het.list <- het.list[!is.na(het.list)]
 
   purrr::map_dfr(het.list, function(hh){
-        useful::predict_poly(m, paste0(hh, ":", xvar),  min, max, ref,
-                   ci_level = ci_level,
-                   step.length = step.length, coefs = NULL,
-                   id.col = id.col) %>%
-        dplyr::mutate(!!het.var := as.factor(hh))
+
+    if(infer.range){
+      min <- range$mint[range[[het.var]]==hh]
+      max <- range$maxt[range[[het.var]]==hh]
+      ref <- range$reft[range[[het.var]]==hh]
+    }
+      useful::predict_poly(m, paste0(hh, ":", xvar),  min, max, ref,
+                 ci_level = ci_level,
+                 step.length = step.length, coefs = NULL,
+                 id.col = id.col) %>%
+      dplyr::mutate(!!het.var := as.factor(hh))
     }
   )
 
