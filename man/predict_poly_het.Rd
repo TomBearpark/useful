@@ -15,11 +15,15 @@ predict_poly_het(
   ci_level = 95,
   step.length = 1,
   coefs = NULL,
-  id.col = NULL
+  id.col = NULL,
+  infer.range = FALSE,
+  minq = 0,
+  maxq = 1,
+  refq = 0.5
 )
 }
 \arguments{
-\item{id.col}{}
+\item{infer.range}{}
 }
 \description{
 Predict poly for model where interactions were created using i()
