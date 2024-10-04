@@ -31,6 +31,7 @@ add_lags <- function(df, vars, max.p = 3, lags = 4, add_leads = FALSE,
                dplyr::lag(.data[[paste0(var, pp)]], lag))
 
     if(add_leads){
+      if(lag == 0) next
       df <- df %>%
         dplyr::mutate(!!paste0("f", lag, "_", var, pp) :=
                  dplyr::lead(.data[[paste0(var, pp)]], lag))
