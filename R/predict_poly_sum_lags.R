@@ -102,6 +102,11 @@ predict_poly_sum_lags <- function(m,
   output$upper <- output$response + cv*se
   output$lower <- output$response - cv*se
 
+  # Compute z-statistics
+  output$z <- output$response / output$se
+  # Compute p-values for the test response = 0
+  output$p_value <- 2 * (1 - stats::pnorm(abs(output$z)))
+
   if(!is.null(divider))
      output <- output %>%
        dplyr::mutate(dplyr::across(c(upper, response, lower, se),

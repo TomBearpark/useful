@@ -72,6 +72,12 @@ predict_poly <- function(m, var, min, max, ref, ci_level = 95,
   output$upper <- output$response + cv*se
   output$lower <- output$response - cv*se
 
+  # Compute z-statistics
+  output$z <- output$response / output$se
+
+  # Compute p-values for the test response = 0
+  output$p_value <- 2 * (1 - stats::pnorm(abs(output$z)))
+
   if(!is.null(id.col)) output$id <- id.col
   return(output)
 }

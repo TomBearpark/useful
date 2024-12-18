@@ -19,7 +19,7 @@ plot_rf_poly <- function(tab,
                          nolegend = TRUE){
 
   # Set up plot
-  pp <- ggplot2::ggplot(tab, aes(x = .data[[xvar]]))  +
+  pp <- ggplot2::ggplot(tab, ggplot2::aes(x = .data[[xvar]]))  +
     ggplot2::geom_hline(yintercept = 0, color = "grey", alpha = 0.9)
 
 
@@ -57,7 +57,7 @@ plot_rf_poly <- function(tab,
     pp <- pp + ggplot2::theme(strip.background = element_blank())
   }
   if(nolegend){
-    pp <- pp + theme(legend.position="none")
+    pp <- pp + ggplot2::theme(legend.position="none")
   }
   pp
 }
