@@ -8,11 +8,15 @@
 #' @export
 #'
 #' @examples
-test_het_coefs <- function(m, poly, lags){
+test_het_coefs <- function(m, poly, lags, subset=NULL){
 
   tt <- c()
 
   vars <- names(stats::coef(m))
+
+  if(!is.null(subset)){
+    vars <- stringr::str_subset(vars, subset)
+  }
 
   for(pp in 1:poly){
     for(ll in 0:lags){
