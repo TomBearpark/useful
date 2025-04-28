@@ -3,12 +3,15 @@
 #' @param m : fixest object with interacted treatment variables
 #' @param poly : the order of the polynomial in the treatment
 #' @param lags the number of lags of the treatment variabe
+#' @param subset : optional, a string to subset the variables to test
+#' @param vcov.in : optional, a covariance matrix to use for the test
 #'
 #' @return
 #' @export
 #'
 #' @examples
-test_het_coefs <- function(m, poly, lags, subset=NULL){
+#'
+test_het_coefs <- function(m, poly, lags, subset=NULL, vcov.in=NULL){
 
   tt <- c()
 
@@ -29,6 +32,6 @@ test_het_coefs <- function(m, poly, lags, subset=NULL){
     }
   }
   list(string = tt,
-       result = car::linearHypothesis(m, tt)
+       result = car::linearHypothesis(m, tt, vcov.=vcov.in)
        )
 }

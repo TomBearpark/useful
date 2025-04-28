@@ -11,17 +11,26 @@
 #' @export
 #'
 #' @examples
-gen_ff <- function(leads, lags, treatvar, interact = NULL){
+gen_ff <- function(leads, lags, treatvar, interact = NULL, interact_ref=NULL){
   if(is.null(interact)){
     leads_str <- ifelse(leads > 0, paste0("f", leads:1, "_",treatvar, collapse = "+"), "")
     lags_str  <- ifelse(lags  > 0, paste0("l", 0:lags, "_",treatvar ,  collapse = "+"), "")
   }else{
-    leads_str <- ifelse(leads > 0,
-                        paste0("i(", interact, ", ","f", leads:1, "_",treatvar,")", collapse = "+"), "")
-    lags_str  <- ifelse(lags  > 0,
-                        paste0("i(", interact, ", ","l", 0:lags, "_", treatvar, ")",  collapse = "+"), "")
 
-    if(leads == 0 & lags == 0) treatvar <- paste0("i(", interact, ", ", treatvar, ")")
+    if(!is.null(interact_ref)){
+      tag_interact <- paste0(", ref=", interact_ref)
+    }else{
+      tag_interact <- ""
+    }
+    leads_str <- ifelse(leads > 0,
+                        paste0("i(", interact, ", ","f", leads:1, "_",treatvar,
+                               tag_interact, ")", collapse = "+"), "")
+    lags_str  <- ifelse(lags  > 0,
+                        paste0("i(", interact, ", ","l", 0:lags, "_", treatvar,
+                               tag_interact, ")",  collapse = "+"), "")
+
+    if(leads == 0 & lags == 0) treatvar <- paste0("i(", interact, ", ",
+                                                  treatvar, tag_interact, ")")
   }
   if(leads >0 | lags>0) ff <- paste0(leads_str, "+", lags_str)
   else ff <- treatvar
@@ -55,6 +64,7 @@ build_formula_poly <- function(yvar,
                                lags,
                                FE,
                                interact = NULL,
+                               interact_ref=NULL,
                                manual_treat = NULL){
 
   if(!is.null(manual_treat)){
@@ -76,7 +86,7 @@ build_formula_poly <- function(yvar,
           ff <- paste0(ff,
                        gen_ff(leads = leads, lags = lags,
                               treatvar = paste0(treat[nn], pp),
-                              interact = interact[nn])
+                              interact = interact[nn], interact_ref=interact_ref)
                        , "+")
         }
       }
