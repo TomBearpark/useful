@@ -29,6 +29,9 @@ fix_mat <- function(X, ridge = 1e-20){
   e  <- eigen(X, symmetric = TRUE)
   if(all(e$values > 0)){
     return(X)
+  }else{
+    message("eigen values are negative,\n
+            making ridge adjustment") 
   }
   
   min.pos <- min(e$values[e$values > 0], na.rm = TRUE) 
