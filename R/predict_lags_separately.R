@@ -23,7 +23,8 @@ predict_lags_separately <- function(m, var, min, max, ref,
                                     var_het = NULL,
                                     ci_level = 95,
                                     step.length = 1, id.col = NULL,
-                                    xvar_name = "temp"){
+                                    xvar_name = "temp", 
+                                    fix_psd = TRUE){
   purrr::map_dfr(
     (-leads):lags,
     function(ll){
@@ -38,7 +39,8 @@ predict_lags_separately <- function(m, var, min, max, ref,
       useful::predict_poly(m, var,
                            min = min, max = max, ref = ref,
                            ci_level = ci_level, step.length = step.length,
-                           id.col = id.col, xvar_name = xvar_name) %>%
+                           id.col = id.col, xvar_name = xvar_name, 
+                           fix_psd=fix_psd) %>%
         dplyr::mutate(lag = !!ll)
     }
   )

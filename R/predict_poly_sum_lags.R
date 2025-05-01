@@ -40,7 +40,9 @@ predict_poly_sum_lags <- function(m,
                                   id.col = NULL,
                                   xvar_name = "temp",
                                   include_checks = FALSE,
-                                  divider = NULL){
+                                  divider = NULL,
+                                  .vcov=NUL, 
+                                  fix_psd = TRUE){
 
 
 
@@ -83,8 +85,14 @@ predict_poly_sum_lags <- function(m,
   beta <- as.matrix(beta[colnames(TT),] )
   # Get the predicted values
   xb  <- TT %*% beta
+
   ## Extract relevant portion of the covariance matrix
-  sig <- stats::vcov(m)[colnames(TT), colnames(TT)]
+  if(is.null(.vcov)){
+    sig <- stats::vcov(m)[colnames(TT), colnames(TT)]
+  }else{
+    sig <- .vcov[colnames(TT), colnames(TT)]
+  }
+  if(fix_psd) sig <- fix_matrix(sig)
 
   # Calculate SE at each t value using delta method
   se <- purrr::map_dbl(1:Nt,

@@ -13,6 +13,10 @@
 #'
 test_het_coefs <- function(m, poly, lags, subset=NULL, vcov.in=NULL){
 
+  if(is.null(vcov.in)){
+    stopifnot(all(eigen(vcov(m), symmetric = TRUE)$values > 0))
+  }
+
   tt <- c()
 
   vars <- names(stats::coef(m))

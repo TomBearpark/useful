@@ -19,6 +19,8 @@
 #' than automatically guess them
 #' @param id.col can specify something to put into an extra column: useful for
 #' facetting in later plots
+#' @param xvar_name what do you want the prediction variable column name to be
+#' @param fix_psd Should we force vcov to be positive semi-definite matrix?
 #'
 #' @return a tibble
 #' @export
@@ -32,7 +34,9 @@
 
 predict_poly <- function(m, var, min, max, ref, ci_level = 95,
                          step.length = 1, coefs = NULL,
-                         id.col = NULL, xvar_name = "temp"){
+                         id.col = NULL, xvar_name = "temp", 
+                         fix_psd = TRUE)
+{
 
   # Extract the coefs as a matrix
   if(is.null(coefs)){
@@ -54,6 +58,10 @@ predict_poly <- function(m, var, min, max, ref, ci_level = 95,
   xb <- TT %*% beta
 
   # Get the SE by the delta method
+  
+  sig <- stats::vcov(m)
+  if(fix_psd) sig <- fix_matrix(sig)
+  
   ## Extract relevant portion of the covariance matrix
   sig <- stats::vcov(m)[coefs, coefs]
 
