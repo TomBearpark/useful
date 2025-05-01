@@ -60,7 +60,7 @@ predict_poly <- function(m, var, min, max, ref, ci_level = 95,
   # Get the SE by the delta method
   
   sig <- stats::vcov(m)
-  if(fix_psd) sig <- fix_matrix(sig)
+  if(fix_psd) sig <- fix_mat(sig)
   
   ## Extract relevant portion of the covariance matrix
   sig <- stats::vcov(m)[coefs, coefs]

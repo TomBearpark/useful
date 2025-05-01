@@ -92,7 +92,7 @@ predict_poly_sum_lags <- function(m,
   }else{
     sig <- .vcov[colnames(TT), colnames(TT)]
   }
-  if(fix_psd) sig <- fix_matrix(sig)
+  if(fix_psd) sig <- fix_mat(sig)
 
   # Calculate SE at each t value using delta method
   se <- purrr::map_dbl(1:Nt,
