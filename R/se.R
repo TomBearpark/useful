@@ -22,7 +22,7 @@
 #' fixed_mat <- fix_mat(mat)
 #' 
 #' @export
-
+#'
 fix_mat <- function(X, ridge = 1e-20){
   
   dm <- dimnames(X)
