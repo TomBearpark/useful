@@ -18,7 +18,7 @@ predict_poly_sum_lags(
   xvar_name = "temp",
   include_checks = FALSE,
   divider = NULL,
-  .vcov = NUL,
+  .vcov = NULL,
   fix_psd = TRUE
 )
 }
