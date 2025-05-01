@@ -22,8 +22,6 @@
 #' fixed_mat <- fix_mat(mat)
 #' 
 #' @export
-fix_mat
-
 
 fix_mat <- function(X, ridge = 1e-20){
   
@@ -70,7 +68,6 @@ fix_mat <- function(X, ridge = 1e-20){
 #' # fixed_vcov <- vcov_psd(model)
 #' 
 #' @export
-vcov_psd
 vcov_psd <- function(object, ...) {
   fix_mat(vcov(object, ...))
 }
