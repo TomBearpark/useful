@@ -4,7 +4,7 @@
 \alias{gen_ff}
 \title{Generate a string for a given variable}
 \usage{
-gen_ff(leads, lags, treatvar, interact = NULL)
+gen_ff(leads, lags, treatvar, interact = NULL, interact_ref = NULL)
 }
 \arguments{
 \item{interact}{}

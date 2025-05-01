@@ -4,7 +4,7 @@
 \alias{test_het_coefs}
 \title{Test for equality of coefficients across some margin of heterogeneity}
 \usage{
-test_het_coefs(m, poly, lags)
+test_het_coefs(m, poly, lags, subset = NULL, vcov.in = NULL)
 }
 \arguments{
 \item{m}{: fixest object with interacted treatment variables}
@@ -12,6 +12,10 @@ test_het_coefs(m, poly, lags)
 \item{poly}{: the order of the polynomial in the treatment}
 
 \item{lags}{the number of lags of the treatment variabe}
+
+\item{subset}{: optional, a string to subset the variables to test}
+
+\item{vcov.in}{: optional, a covariance matrix to use for the test}
 }
 \description{
 Test for equality of coefficients across some margin of heterogeneity

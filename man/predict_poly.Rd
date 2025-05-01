@@ -14,7 +14,8 @@ predict_poly(
   step.length = 1,
   coefs = NULL,
   id.col = NULL,
-  xvar_name = "temp"
+  xvar_name = "temp",
+  fix_psd = TRUE
 )
 }
 \arguments{
@@ -44,6 +45,10 @@ than automatically guess them}
 
 \item{id.col}{can specify something to put into an extra column: useful for
 facetting in later plots}
+
+\item{xvar_name}{what do you want the prediction variable column name to be}
+
+\item{fix_psd}{Should we force vcov to be positive semi-definite matrix?}
 }
 \value{
 a tibble

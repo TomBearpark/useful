@@ -14,6 +14,7 @@ build_formula_poly(
   lags,
   FE,
   interact = NULL,
+  interact_ref = NULL,
   manual_treat = NULL
 )
 }

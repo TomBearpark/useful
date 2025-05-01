@@ -16,7 +16,8 @@ predict_lags_separately(
   ci_level = 95,
   step.length = 1,
   id.col = NULL,
-  xvar_name = "temp"
+  xvar_name = "temp",
+  fix_psd = TRUE
 )
 }
 \arguments{
