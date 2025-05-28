@@ -34,7 +34,7 @@
 
 predict_poly <- function(m, var, min, max, ref, ci_level = 95,
                          step.length = 1, coefs = NULL,
-                         id.col = NULL, xvar_name = "temp", 
+                         id.col = NULL, xvar_name = "temp",
                          fix_psd = TRUE)
 {
 
@@ -58,10 +58,10 @@ predict_poly <- function(m, var, min, max, ref, ci_level = 95,
   xb <- TT %*% beta
 
   # Get the SE by the delta method
-  
+
   sig <- stats::vcov(m)
   if(fix_psd) sig <- fix_mat(sig)
-  
+
   ## Extract relevant portion of the covariance matrix
   sig <- stats::vcov(m)[coefs, coefs]
 
@@ -118,7 +118,8 @@ predict_poly_het <- function(m, df, het.var,
                              ci_level = 95,
                              step.length = 1, coefs = NULL, id.col = NULL,
                              infer.range=FALSE,
-                             minq=0, maxq=1, refq=0.5
+                             minq=0, maxq=1, refq=0.5,
+                             fix_psd = TRUE
                              ){
 
   if(infer.range){
@@ -142,7 +143,8 @@ predict_poly_het <- function(m, df, het.var,
       useful::predict_poly(m, paste0(hh, ":", xvar),  min, max, ref,
                  ci_level = ci_level,
                  step.length = step.length, coefs = NULL,
-                 id.col = id.col) %>%
+                 id.col = id.col,
+                 fix_psd = fix_psd) %>%
       dplyr::mutate(!!het.var := as.factor(hh))
     }
   )
