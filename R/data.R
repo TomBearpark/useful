@@ -14,10 +14,11 @@
 #'
 #' @examples
 add_lags <- function(df, vars, max.p = 3, lags = 4, add_leads = FALSE,
-                     sort_df = TRUE){
+                     sort_df = TRUE, ID = "id", date = "date") {
 
   if(sort_df) {
-    df <- df %>% dplyr::arrange(id, date) %>% dplyr::group_by(id)
+    df <- df %>% dplyr::arrange(.data[[ID]], .data[[date]]) %>%
+      dplyr::group_by(.data[[ID]])
   }else{
     print("you better have pre-sorted and arranged these data!")
   }

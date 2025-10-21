@@ -1,7 +1,7 @@
 #' Get the response function from a polynomial FE regression, with SEs
 #'
 #' @param m An output of a fixest regression
-#' @param var The string identifier for thevariable we want to get a RF for.
+#' @param var The string identifier for the variable we want to get a RF for.
 #' For this to work, you need
 #' to make sure that the polynomial terms are consistently named, and include
 #' this string. They need to be named "l{lag}_{var}_p{poly}" at the moment
@@ -41,7 +41,7 @@ predict_poly_sum_lags <- function(m,
                                   xvar_name = "temp",
                                   include_checks = FALSE,
                                   divider = NULL,
-                                  .vcov=NULL, 
+                                  .vcov=NULL,
                                   fix_psd = TRUE){
 
 

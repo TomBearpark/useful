@@ -19,7 +19,8 @@ predict_poly_het(
   infer.range = FALSE,
   minq = 0,
   maxq = 1,
-  refq = 0.5
+  refq = 0.5,
+  fix_psd = TRUE
 )
 }
 \arguments{
